@@ -5,6 +5,8 @@
     <persistence-unit name="jpa-preparation"  transaction-type="RESOURCE_LOCAL">
         <class>TestEn</class>
         <class>guru.zaidel.model.EmployeeOnVacation</class>
+        <class>guru.zaidel.model.EmployeeOnVacationNonDefaultId</class>
+        <class>guru.zaidel.model.EmployeeOnVacationNonDefaultTables</class>
         <properties>
 
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>

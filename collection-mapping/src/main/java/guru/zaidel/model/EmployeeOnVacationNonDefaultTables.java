@@ -1,34 +1,33 @@
 package guru.zaidel.model;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
 /**
  * Created by Alexander on 24.01.2016.
  */
-@Table(name = "nonEmployeeOnVacation")
 @Entity
-public class EmployeeOnVacation {
+public class EmployeeOnVacationNonDefaultTables {
     @Id
-    private Long id;
+    private Long nonDefId;
     private String name;
 
+    @AttributeOverride(name="daysTaken", column = @Column(name="days_given"))
     @ElementCollection(targetClass = VacationEntry.class)
     private Collection vacationBooking;
 
+    @Column(name="not_his_nick_names")
     @ElementCollection
+    @CollectionTable(name="NICK_NAMES_NON_DEF", joinColumns = @JoinColumn(name="his_nick_names_id"))
     private Set<String> nickNames;
 
-    public Long getId() {
-        return id;
+    public Long getNonDefId() {
+        return nonDefId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNonDefId(Long nonDefId) {
+        this.nonDefId = nonDefId;
     }
 
     public String getName() {
