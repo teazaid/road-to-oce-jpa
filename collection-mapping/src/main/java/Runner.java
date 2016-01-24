@@ -1,10 +1,8 @@
 import guru.zaidel.BaseRunner;
-import guru.zaidel.model.EmployeeOnVacation;
-import guru.zaidel.model.EmployeeOnVacationNonDefaultId;
-import guru.zaidel.model.EmployeeOnVacationNonDefaultTables;
-import guru.zaidel.model.VacationEntry;
+import guru.zaidel.model.*;
 
 import javax.persistence.EntityTransaction;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -46,5 +44,26 @@ public class Runner extends BaseRunner {
         transaction.commit();
 
 
+        EmployeeOrderBy employeeOrderBy = new EmployeeOrderBy();
+        employeeOrderBy.setId(1l);
+        employeeOrderBy.setInfos(Arrays.asList(new Info("str1", 1), new Info("str2", 2)));
+
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(employeeOrderBy);
+        transaction.commit();
+
+        //TDODO dont throw exception, because the values were cached
+        //entityManager.clear();
+
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+        EmployeeOrderBy employeeOrderBy1 = entityManager.find(EmployeeOrderBy.class, 1l);
+
+        for(Info i: employeeOrderBy1.getInfos()) {
+            System.out.println(i.getInfoStr());
+        }
+
+        transaction.commit();
     }
 }

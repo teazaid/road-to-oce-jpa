@@ -7,8 +7,9 @@
         <class>guru.zaidel.model.EmployeeOnVacation</class>
         <class>guru.zaidel.model.EmployeeOnVacationNonDefaultId</class>
         <class>guru.zaidel.model.EmployeeOnVacationNonDefaultTables</class>
-        <properties>
+        <class>guru.zaidel.model.EmployeeOrderBy</class>
 
+        <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
