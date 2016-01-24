@@ -52,6 +52,7 @@ public class EmployeeSimpleMap {
     @CollectionTable(name = "PHONE_NUMBERS_ENUM_TABLE")
     @MapKeyColumn(name="STRING_KEY")
     @MapKeyEnumerated(EnumType.STRING)
+    //@MapKeyTemporal
     @Column(name="column_phone_numbers")
     private Map<PhoneType, String> phoneNumbersEnum;
 

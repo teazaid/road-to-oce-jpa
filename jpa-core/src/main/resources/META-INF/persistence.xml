@@ -11,6 +11,8 @@
         <class>guru.zaidel.model.PrintQueue</class>
         <class>guru.zaidel.model.PrintJob</class>
         <class>guru.zaidel.model.EmployeeSimpleMap</class>
+        <class>guru.zaidel.model.EmployeeAsMapValue</class>
+        <class>guru.zaidel.model.DepartmentAsMapOfEmployees</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
