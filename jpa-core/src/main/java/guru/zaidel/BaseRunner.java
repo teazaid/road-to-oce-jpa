@@ -23,9 +23,7 @@ public abstract class BaseRunner {
 
     }
 
-    public void doTheJob() {
-
-    }
+    abstract public void doTheJob();
 
     public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("jpa-preparation");

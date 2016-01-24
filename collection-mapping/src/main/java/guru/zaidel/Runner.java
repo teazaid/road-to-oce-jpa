@@ -1,10 +1,11 @@
-import guru.zaidel.BaseRunner;
+package guru.zaidel;
+
 import guru.zaidel.model.*;
 
 import javax.persistence.EntityTransaction;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -65,5 +66,18 @@ public class Runner extends BaseRunner {
         }
 
         transaction.commit();
+
+        EmployeeSimpleMap employeeSimpleMap = new EmployeeSimpleMap(1l);
+        HashMap<String, String> stringStringHashMap = new HashMap<String, String>();
+        HashMap<PhoneType, String> stringStringHashMapEnum = new HashMap<PhoneType, String>();
+        employeeSimpleMap.setPhoneNumbers(stringStringHashMap);
+        employeeSimpleMap.setPhoneNumbersEnum(stringStringHashMapEnum);
+
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(employeeSimpleMap);
+        transaction.commit();
+
+
     }
 }

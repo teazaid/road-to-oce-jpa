@@ -8,7 +8,9 @@
         <class>guru.zaidel.model.EmployeeOnVacationNonDefaultId</class>
         <class>guru.zaidel.model.EmployeeOnVacationNonDefaultTables</class>
         <class>guru.zaidel.model.EmployeeOrderBy</class>
-
+        <class>guru.zaidel.model.PrintQueue</class>
+        <class>guru.zaidel.model.PrintJob</class>
+        <class>guru.zaidel.model.EmployeeSimpleMap</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
