@@ -13,6 +13,7 @@
         <module>jpa-core</module>
         <module>collection-mapping</module>
         <module>entity-manager</module>
+        <module>query</module>
     </modules>
 
     <properties>
