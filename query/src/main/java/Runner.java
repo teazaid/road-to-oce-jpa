@@ -1,7 +1,8 @@
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import guru.zaidel.model.Person;
+import guru.zaidel.model.Phone;
+
+import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,7 +13,54 @@ public class Runner {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("query-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("select p.phones from Person p");
+        Person person = new Person();
+        Phone ph1 = new Phone();
+        ph1.setNumber("1");
+
+        Phone ph2 = new Phone();
+        ph1.setNumber("1");
+
+        ph1.setPerson(person);
+        ph2.setPerson(person);
+
+        person.setPhones(Arrays.asList(ph1, ph2));
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(person);
+        entityManager.persist(ph1);
+        entityManager.persist(ph2);
+        transaction.commit();
+
+        entityManager.clear();
+
+        transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        //Query query = entityManager.createQuery("select p.phones from Person p");
+        /*
+        * select phones2_.id as id1_1_, phones2_.number as number2_1_, phones2_.person_id as person_i3_1_ from
+            Person person0_ inner join Phone phones2_ on person0_.id=phones2_.person_id cross
+                join Phone phone1_
+            where
+                person0_.id=phone1_.person_id
+                and phone1_.number='1'
+        *
+        * */
+
+        //Query query = entityManager.createQuery("select p.phones from Person p, Phone ph where p = ph.person and ph.number = '1'");
+        //Query query = entityManager.createQuery("select ph.number from Person p join p.phones ph where ph.number = '1'");
+        Query query = entityManager.createQuery("select count(*) from Person p join p.phones ph where ph.number = '1' group by p");
         List resultList = query.getResultList();
+
+        Query parNumQuery = entityManager.createQuery("select count(*) from Person p join p.phones ph where ph.number = ?1 group by p");
+        parNumQuery.setParameter(1, "1");
+        Query parNameQuery = entityManager.createQuery("select count(*) from Person p join p.phones ph where ph.number = :number group by p");
+        parNameQuery.setParameter("number", "1");
+
+
+        transaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
     }
 }
