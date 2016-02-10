@@ -3,6 +3,7 @@ import guru.zaidel.model.Phone;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,9 +56,27 @@ public class Runner {
 
         Query parNumQuery = entityManager.createQuery("select count(*) from Person p join p.phones ph where ph.number = ?1 group by p");
         parNumQuery.setParameter(1, "1");
+        //parNumQuery.setParameter(1, new Date(), TemporalType.DATE);
+
         Query parNameQuery = entityManager.createQuery("select count(*) from Person p join p.phones ph where ph.number = :number group by p");
         parNameQuery.setParameter("number", "1");
 
+        entityManagerFactory.addNamedQuery("MyNamedOfNamedQuery", parNameQuery);
+//        entityManager.setFlushMode(FlushModeType.COMMIT);
+
+        TypedQuery<Person> personFromSimpleSelect = entityManager.createQuery("select p from Person p", Person.class);
+
+        personFromSimpleSelect.getResultList();
+
+        TypedQuery<Person> personFromObjectSelect = entityManager.createQuery("select OBJECT(p) from Person p", Person.class);
+        personFromObjectSelect.getResultList();
+
+//        java.lang.IllegalArgumentException: org.hibernate.hql.internal.ast.QuerySyntaxException: expecting CLOSE, found '.' near line 1, column 16 [select OBJECT(p.phones) from guru.zaidel.model.Person p]
+//        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1679)
+//        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1602)
+//        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1608)
+//        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:313)
+//        TypedQuery<Person> personFromObjectWrongSelect = entityManager.createQuery("select OBJECT(p.phones) from Person p", Person.class);
 
         transaction.commit();
         entityManager.close();
