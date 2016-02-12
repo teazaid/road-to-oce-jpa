@@ -71,13 +71,26 @@ public class Runner {
         TypedQuery<Person> personFromObjectSelect = entityManager.createQuery("select OBJECT(p) from Person p", Person.class);
         personFromObjectSelect.getResultList();
 
-//        java.lang.IllegalArgumentException: org.hibernate.hql.internal.ast.QuerySyntaxException: expecting CLOSE, found '.' near line 1, column 16 [select OBJECT(p.phones) from guru.zaidel.model.Person p]
+//        ,java.lang.IllegalArgumentException: org.hibernate.hql.internal.ast.QuerySyntaxException: expecting CLOSE, found '.' near line 1, column 16 [select OBJECT(p.phones) from guru.zaidel.model.Person p]
 //        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1679)
 //        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1602)
 //        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1608)
 //        at org.hibernate.jpa.spi.AbstractEntityManagerImpl.createQuery(AbstractEntityManagerImpl.java:313)
 //        TypedQuery<Person> personFromObjectWrongSelect = entityManager.createQuery("select OBJECT(p.phones) from Person p", Person.class);
 
+        entityManager.createQuery("select pp.number from Person p join p.phones pp");
+        entityManager.createQuery("select pp.number from Person p join p.phones pp on pp.number = '0'");
+        entityManager.createQuery("select p.phones from Person p ");
+        entityManager.createQuery("select ph.number from Person p, IN (p.phones) ph");
+        entityManager.createQuery("select ph.number from Person p, Phone ph where ph.person = p");
+
+        entityManager.createQuery("select ENTRY(n), KEY(n), value(n) from Employee e join e.numbers n");
+        //entityManager.createQuery("select KEY(n), value(n) from Employee e join e.numbers n where KEY(ENTRY(n)) = 'x' ");
+
+        //[NOT] between numeric, string, dates
+        //LIKE 'QA\_ASD%' ESCAPE '\'
+        // IS [NOT] EMPTY
+        // [NOT] MEMBER OF
         transaction.commit();
         entityManager.close();
         entityManagerFactory.close();
