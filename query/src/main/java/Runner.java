@@ -84,8 +84,29 @@ public class Runner {
         entityManager.createQuery("select ph.number from Person p, IN (p.phones) ph");
         entityManager.createQuery("select ph.number from Person p, Phone ph where ph.person = p");
 
+//        entityManager.createQuery("select 1 from Person p where type(p) = guru.zaidel.model.Person");
+
         entityManager.createQuery("select ENTRY(n), KEY(n), value(n) from Employee e join e.numbers n");
+
+        entityManager.createQuery("select case p.name when 'A' then 'a' when 'B' then 'b' else '?' end  from Employee p ");
+        entityManager.createQuery("select case  when p.name = 'A' then 'a' when p.name = 'B' then 'b' else '?' end  from Employee p ");
+        entityManager.createQuery("select coalesce(p.name, p.id) from Employee p ");
+        entityManager.createQuery("select nullif(p.id, p.name) from Employee p ");
+
         //entityManager.createQuery("select KEY(n), value(n) from Employee e join e.numbers n where KEY(ENTRY(n)) = 'x' ");
+
+        /*
+        * SELECT p
+            FROM Project p
+            WHERE TREAT(p AS QualityProject).qaRating > 4
+            OR TYPE(p) = DesignProject
+
+            SELECT e, q.name, q.qaRating
+            FROM Employee e JOIN TREAT(e.projects AS QualityProject) q
+            WHERE q.qaRating > 4
+
+            Select p from Person p where TREAT(p.phones as MyPhone) myPh whre myPh.name= ''
+        * */
 
         //[NOT] between numeric, string, dates
         //LIKE 'QA\_ASD%' ESCAPE '\'
