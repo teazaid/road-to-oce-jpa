@@ -1,5 +1,6 @@
 import guru.zaidel.model.Department;
 import guru.zaidel.model.Employee;
+import guru.zaidel.model.EmployeeInfo;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -57,11 +58,21 @@ public class Runner {
 
 
         myQueryTuple.select(myCriteriaBuilder.tuple(tupleRoot.get("name"), tupleRoot.get("id")));
+        myQueryTuple.multiselect(tupleRoot.get("name"), tupleRoot.get("id"));
 
         myQuery.select(from).where(myCriteriaBuilder.equal(from.get("department").get("name"), "New York"));
         /*
         * select distinct d from department d, employee e where d = e.department
         * */
+
+        CriteriaQuery<Object[]> query2 = criteriaBuilder.createQuery(Object[].class);
+        Root<Employee> from1 = query2.from(Employee.class);
+        query2.multiselect(from1.get("id"), from1.get("name"));
+        query2.multiselect(cb.construct(EmployeeInfo.class, from1.get("id"), from1.get("name")) );
+
+        CriteriaQuery<EmployeeInfo> query3 = cb.createQuery(EmployeeInfo.class);
+        Root<Employee> from2 = query3.from(Employee.class);
+        query3.select(cb.construct(EmployeeInfo.class, from2.get("name"), from2.get("id")));
 
         entityManager.close();
         entityManagerFactory.close();
