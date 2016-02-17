@@ -46,6 +46,19 @@ public class Runner {
         TypedQuery<Department> query1 = entityManager.createQuery(departmentCriteriaQuery);
         List<Department> resultList = query1.getResultList();
 
+
+        CriteriaBuilder myCriteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Employee> myQuery = myCriteriaBuilder.createQuery(Employee.class);
+        Root<Employee> from = myQuery.from(Employee.class);
+        myQuery.select(from.get("name"));
+
+        CriteriaQuery<Tuple> myQueryTuple = myCriteriaBuilder.createTupleQuery();
+        Root<Employee> tupleRoot = myQueryTuple.from(Employee.class);
+
+
+        myQueryTuple.select(myCriteriaBuilder.tuple(tupleRoot.get("name"), tupleRoot.get("id")));
+
+        myQuery.select(from).where(myCriteriaBuilder.equal(from.get("department").get("name"), "New York"));
         /*
         * select distinct d from department d, employee e where d = e.department
         * */

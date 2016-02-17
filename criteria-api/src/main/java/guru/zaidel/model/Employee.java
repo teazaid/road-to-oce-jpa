@@ -1,9 +1,6 @@
 package guru.zaidel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by alexanderz on 16.02.16.
@@ -15,6 +12,9 @@ public class Employee {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    private Department department;
 
     public Long getId() {
         return id;
@@ -30,5 +30,13 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
