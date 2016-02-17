@@ -1,12 +1,11 @@
+import guru.zaidel.model.Department;
 import guru.zaidel.model.Employee;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 /**
  * Created by alexanderz on 16.02.16.
@@ -38,7 +37,18 @@ public class Runner {
 //        cb.createTupleQuery()
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        cb.createQuery().
+        CriteriaQuery<Department> departmentCriteriaQuery = cb.createQuery(Department.class);
+        Root<Department> fromDepartment = departmentCriteriaQuery.from(Department.class);
+        Root<Employee> fromEmployee = departmentCriteriaQuery.from(Employee.class);
+
+        departmentCriteriaQuery.select(fromDepartment).distinct(true).where(cb.equal(fromDepartment, fromEmployee.get("department")));
+
+        TypedQuery<Department> query1 = entityManager.createQuery(departmentCriteriaQuery);
+        List<Department> resultList = query1.getResultList();
+
+        /*
+        * select distinct d from department d, employee e where d = e.department
+        * */
 
         entityManager.close();
         entityManagerFactory.close();
