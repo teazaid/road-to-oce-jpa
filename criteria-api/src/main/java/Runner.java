@@ -3,9 +3,7 @@ import guru.zaidel.model.Employee;
 import guru.zaidel.model.EmployeeInfo;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 /**
@@ -78,11 +76,24 @@ public class Runner {
         Root<Employee> e = tupleQuery.from(Employee.class);
         tupleQuery.multiselect(e.get("id").alias("id"), e.get("name").alias("fullName"));
 
+        Join<Employee, Department> department = e.join("department", JoinType.INNER);
+        Fetch<Object, Object> department1 = e.fetch("department", JoinType.INNER);
+
+        tupleQuery.multiselect(e);
+
         TypedQuery<Tuple> query4 = entityManager.createQuery(tupleQuery);
         List<Tuple> resultList1 = query4.getResultList();
         for(Tuple t: resultList1) {
             System.out.println(t.get("id") + " " + t.get("fullName"));
         }
+
+        CriteriaBuilder criteriaBuilder1 = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Employee> query5 = criteriaBuilder1.createQuery(Employee.class);
+
+        Root<Employee> from3 = query5.from(Employee.class);
+        from3.fetch("department", JoinType.LEFT);
+        query5.select(from3).distinct(true);
+
 
         entityManager.close();
         entityManagerFactory.close();
