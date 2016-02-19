@@ -74,6 +74,16 @@ public class Runner {
         Root<Employee> from2 = query3.from(Employee.class);
         query3.select(cb.construct(EmployeeInfo.class, from2.get("name"), from2.get("id")));
 
+        CriteriaQuery<Tuple> tupleQuery = cb.createTupleQuery();
+        Root<Employee> e = tupleQuery.from(Employee.class);
+        tupleQuery.multiselect(e.get("id").alias("id"), e.get("name").alias("fullName"));
+
+        TypedQuery<Tuple> query4 = entityManager.createQuery(tupleQuery);
+        List<Tuple> resultList1 = query4.getResultList();
+        for(Tuple t: resultList1) {
+            System.out.println(t.get("id") + " " + t.get("fullName"));
+        }
+
         entityManager.close();
         entityManagerFactory.close();
     }
