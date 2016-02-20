@@ -94,6 +94,13 @@ public class Runner {
         from3.fetch("department", JoinType.LEFT);
         query5.select(from3).distinct(true);
 
+        Predicate conjunction = criteriaBuilder.conjunction();
+        ParameterExpression<String> p = criteriaBuilder.parameter(String.class, "name");
+        criteriaBuilder.and(conjunction, criteriaBuilder.equal(from1.get("name"), p));
+
+        ParameterExpression<String> p2 = criteriaBuilder.parameter(String.class, "name");
+        criteriaBuilder.and(conjunction, criteriaBuilder.equal(from1.get("department").get("name"),p2 ));
+
 
         entityManager.close();
         entityManagerFactory.close();
