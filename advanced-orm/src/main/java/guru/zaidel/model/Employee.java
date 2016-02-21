@@ -1,6 +1,9 @@
 package guru.zaidel.model;
 
 import javax.persistence.*;
+import java.util.ArrayList.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by alexanderz on 21.02.16.
@@ -17,6 +20,42 @@ public class Employee {
     @Embedded
     @Convert(converter = StringToIntConverter.class, attributeName = "content")
     private EmployeeInfo employeeInfo;
+
+    @Convert(converter = BooleanToIntConverter.class)
+    @ElementCollection
+    private java.util.List<Boolean> booleans;
+
+    @ElementCollection
+    @Convert(converter = StringToIntConverter.class, attributeName = "key.content")
+    private Map<EmployeeInfo, Integer> typeCount;
+
+    @Enumerated
+    @Convert(converter = EmployeeTypeConverter.class)
+    private EmployeeType employeeType;
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    public Map<EmployeeInfo, Integer> getTypeCount() {
+        return typeCount;
+    }
+
+    public void setTypeCount(Map<EmployeeInfo, Integer> typeCount) {
+        this.typeCount = typeCount;
+    }
+
+    public List<Boolean> getBooleans() {
+        return booleans;
+    }
+
+    public void setBooleans(List<Boolean> booleans) {
+        this.booleans = booleans;
+    }
 
     public EmployeeInfo getEmployeeInfo() {
         return employeeInfo;

@@ -1,4 +1,5 @@
 import guru.zaidel.model.Employee;
+import guru.zaidel.model.EmployeeType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +16,8 @@ public class Runner {
 
         Employee e = new Employee();
         e.setBounded(true);
+
+        e.setEmployeeType(EmployeeType.ASSISTANT);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
