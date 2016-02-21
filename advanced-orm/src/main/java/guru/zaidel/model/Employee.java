@@ -14,6 +14,18 @@ public class Employee {
     @Convert(converter = BooleanToIntConverter.class)
     private boolean bounded;
 
+    @Embedded
+    @Convert(converter = StringToIntConverter.class, attributeName = "content")
+    private EmployeeInfo employeeInfo;
+
+    public EmployeeInfo getEmployeeInfo() {
+        return employeeInfo;
+    }
+
+    public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+        this.employeeInfo = employeeInfo;
+    }
+
     public Long getId() {
         return id;
     }
