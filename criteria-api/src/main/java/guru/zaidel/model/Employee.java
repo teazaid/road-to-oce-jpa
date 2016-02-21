@@ -5,6 +5,10 @@ import javax.persistence.*;
 /**
  * Created by alexanderz on 16.02.16.
  */
+@NamedQueries(
+        @NamedQuery(name = "Employee.sds", query = "select e from Employee e", lockMode = LockModeType.OPTIMISTIC,
+                hints = {@QueryHint(name="", value="")})
+)
 @Entity
 public class Employee {
     @Id

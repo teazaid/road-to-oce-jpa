@@ -7,6 +7,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 /**
  * Created by alexanderz on 20.02.16.
@@ -39,6 +41,12 @@ public class Runner2 {
                 cb2.coalesce(root.get("name"), root.get("id"))
 
         ).where(cb2.equal(root.get("department").get("name"), "_") );
+
+        //entityManager.getCriteriaBuilder().createCriteriaDelete()
+        Metamodel metamodel = entityManager.getMetamodel();
+
+        EntityType<Employee> entity = metamodel.entity(Employee.class);
+
 
         entityManager.close();
         entityManagerFactory.close();
