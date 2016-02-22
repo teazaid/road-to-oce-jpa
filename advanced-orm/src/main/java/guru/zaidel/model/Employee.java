@@ -1,7 +1,6 @@
 package guru.zaidel.model;
 
 import javax.persistence.*;
-import java.util.ArrayList.*;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
+    @Embedded
+    private ContactInfo contactInfo;
 
     @Convert(converter = BooleanToIntConverter.class)
     private boolean bounded;
@@ -32,6 +34,14 @@ public class Employee {
     @Enumerated
     @Convert(converter = EmployeeTypeConverter.class)
     private EmployeeType employeeType;
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(ContactInfo contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 
     public EmployeeType getEmployeeType() {
         return employeeType;
