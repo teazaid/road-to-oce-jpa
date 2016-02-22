@@ -5,6 +5,8 @@ import javax.persistence.AttributeConverter;
 /**
  * Created by alexanderz on 21.02.16.
  */
+
+
 public class BooleanToIntConverter implements AttributeConverter<Boolean, Integer> {
     @Override
     public Integer convertToDatabaseColumn(Boolean attribute) {
