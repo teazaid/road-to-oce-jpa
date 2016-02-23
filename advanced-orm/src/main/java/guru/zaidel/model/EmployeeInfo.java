@@ -8,6 +8,9 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class EmployeeInfo {
+    public EmployeeInfo() {
+    }
+
     private String content;
     private Long number;
 

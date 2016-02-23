@@ -7,6 +7,9 @@ public class EmployeeInfo {
     private Long id;
     private String name;
 
+    public EmployeeInfo() {
+    }
+
     public Long getId() {
         return id;
     }
