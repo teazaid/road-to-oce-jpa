@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by alexanderz on 24.02.16.
  */
 @Entity
-public class DerEmployee {
+public class DerEmployeeTwo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,9 +24,8 @@ Hibernate:
         primary key (EMP_ID)
     )
         * */
-    @MapsId
-    @OneToOne
-    @JoinColumn(name = "EMP_ID")/*
+
+    /*
     Hibernate:
     create table DerEmployee (
         id bigint not null,
@@ -40,6 +39,7 @@ Hibernate:
         primary key (EMP_ID)
     )
     */
+    @OneToOne(mappedBy = "derEmployee")
     private DerEmployeeHistory derEmployeeHistory;
 
     private String name;

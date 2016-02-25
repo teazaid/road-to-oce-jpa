@@ -18,12 +18,22 @@ public class Runner {
 
         DerEmployee derEmployee = new DerEmployee();
         derEmployee.setName("1");
+        derEmployee.setId(1l);
         DerEmployeeHistory derEmployeeHistory = new DerEmployeeHistory();
         derEmployeeHistory.setDerEmployee(derEmployee);
+        derEmployee.setDerEmployeeHistory(derEmployeeHistory);
+
+        DerEmployeeTwo derEmployeeTwo = new DerEmployeeTwo();
+        derEmployee.setName("1");
+
+        DerHistoryAnother derHistoryAnother = new DerHistoryAnother();
+        derHistoryAnother.setDerEmployeeTwo(derEmployeeTwo);
 
 
-        em.persist(derEmployee);
         em.persist(derEmployeeHistory);
+        em.persist(derEmployee);
+        em.persist(derEmployeeTwo);
+        em.persist(derHistoryAnother);
 
         transaction.commit();
 
