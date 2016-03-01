@@ -5,6 +5,22 @@ import javax.persistence.*;
 /**
  * Created by alexanderz on 22.02.16.
  */
+@SqlResultSetMapping(
+        name = "scalaMapping",
+        columns = {@ColumnResult(name = "id")}
+)
+@NamedStoredProcedureQuery(name = "emp_fetch",
+        procedureName = "emp_fetch",
+        parameters = {
+                @StoredProcedureParameter(name="empList", type = void.class, mode = ParameterMode.REF_CURSOR)
+        },
+        resultClasses = Customer.class
+)
+@NamedEntityGraph(
+        attributeNodes = {
+            @NamedAttributeNode("id")
+        }
+)
 @Entity
 public class Customer {
     @Id

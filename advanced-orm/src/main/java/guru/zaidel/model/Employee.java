@@ -8,6 +8,9 @@ import java.util.Map;
  * Created by alexanderz on 21.02.16.
  */
 @Entity
+@SqlResultSetMapping(name = "EmployeeWithAddress",
+    entities = {@EntityResult(entityClass = Employee.class, fields = {@FieldResult(name="id", column = "id_column")})}
+)
 public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
