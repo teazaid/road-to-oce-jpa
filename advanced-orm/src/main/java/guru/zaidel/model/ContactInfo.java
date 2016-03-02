@@ -1,6 +1,7 @@
 package guru.zaidel.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Map;
  */
 @Embeddable
 public class ContactInfo {
+    @NotNull
     @Embedded
     private Address address;
 

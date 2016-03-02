@@ -16,6 +16,7 @@
         <module>query</module>
         <module>criteria-api</module>
         <module>advanced-orm</module>
+        <module>other-advanced</module>
     </modules>
 
     <properties>
