@@ -12,5 +12,18 @@
     <groupId>guru.zaidel.oce.jpa</groupId>
     <artifactId>other-advanced</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>guru.zaidel.oce.jpa.core</groupId>
+            <artifactId>jpa-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
