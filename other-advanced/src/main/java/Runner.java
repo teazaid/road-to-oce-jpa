@@ -1,10 +1,6 @@
 import guru.zaidel.model.Employee;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
+import javax.persistence.*;
 
 /**
  * Created by alexanderz on 02.03.16.
@@ -14,8 +10,28 @@ public class Runner {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("other-advanced-orm-unit");
         EntityManager em = emf.createEntityManager();
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        validatorFactory.getValidator().validate(new Employee());
+        Employee employee = new Employee();
+        employee.setId(1l);
+
+
+        /*ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        validatorFactory.getValidator().validate();*/
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.persist(employee);
+        transaction.commit();
+        em.clear();
+
+        Persistence.getPersistenceUtil().isLoaded(employee);
+
+        transaction = em.getTransaction();
+        transaction.begin();
+        Employee employee1 = em.find(Employee.class, 1l, LockModeType.PESSIMISTIC_WRITE);
+        employee1.setName("name");
+
+        transaction.commit();
+        em.clear();;
 
         em.close();
         emf.close();
